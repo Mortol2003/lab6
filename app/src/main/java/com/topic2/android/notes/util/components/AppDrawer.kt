@@ -20,6 +20,11 @@ import com.topic2.android.notes.routing.Screen
 import com.topic2.android.notes.theme.NotesTheme
 import com.topic2.android.notes.theme.NotesThemeSettings
 
+private val NotesThemeSettings.Companion.isDarkThemeEnabled: Boolean
+    get() {
+        TODO("Not yet implemented")
+    }
+
 @Composable
 private fun AppDrawerHeader() {
     Row(modifier = Modifier.fillMaxWidth()) {
