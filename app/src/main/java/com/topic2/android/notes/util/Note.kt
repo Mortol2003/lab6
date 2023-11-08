@@ -13,16 +13,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.foundation.clickable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.topic2.android.notes.R
+import com.topic2.android.notes.domain.model.NoteModel
+import com.topic2.android.notes.util.fromHex
 import com.topic2.android.notes.theme.rwGreen
 import com.topic2.android.notes.util.components.NoteColor
 
 @Composable
-fun Note(){
+ fun Note(
+    note: NoteModel,
+    onNoteClick: (NoteModel) -> Unit = {},
+    onNoteCheckedChange: (NoteModel) -> Unit = {}
+) {
     val backgroundShape: Shape = RoundedCornerShape(4.dp)
     Row(
         modifier = Modifier
@@ -66,17 +73,30 @@ fun Note(){
                 )
             )
         }
-        Checkbox(
-            checked = false,
-            onCheckedChange = { },
-            modifier = Modifier
-                .padding(start = 8.dp)
-                .align(Alignment.CenterVertically)
-        )
+        if (note.isCheckedOff != null) {
+            Checkbox(
+                checked = note.isCheckedOff,
+                onCheckedChange = { isChecked ->
+                    val newNote = note.copy(isCheckedOff = isChecked)
+                    onNoteCheckedChange(newNote)
+                },
+                modifier = Modifier
+                    .padding(start = 8.dp)
+                    .align(Alignment.CenterVertically)
+            )
+        }
+
     }
 }
 @Preview
 @Composable
-fun NotePreview(){
-    Note()
+private fun NotePreview() {
+    Note(
+        note = NoteModel(
+            1,
+            "Заметка 1",
+            "Содержание 1",
+            null
+        )
+    )
 }

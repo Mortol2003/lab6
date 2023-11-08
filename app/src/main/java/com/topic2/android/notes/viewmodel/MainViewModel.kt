@@ -14,6 +14,14 @@ import kotlinx.coroutines.launch
  * Эта модель просмотра используется для всех экранов.
  */
 class MainViewModel(private val repository: Repository) : ViewModel() {
+    fun onNoteCheckedChange(it: NoteModel) {
+
+    }
+
+    fun onNoteClick(it: NoteModel) {
+
+    }
+
     val notesNotInTrash: LiveData<List<NoteModel>> by lazy {
         repository.getAllNotesNotInTrash()
     }
@@ -30,12 +38,6 @@ fun onNoteClick(note: NoteModel) {
 fun onNoteCheckedChange(
     note: NoteModel
 ) {
-    val viewModelScope
-    viewModelScope.launch(
-        Dispatchers.Default
-    ) {
-        val repository
-        repository.insertNote(note)
-    }
+
 }
 
