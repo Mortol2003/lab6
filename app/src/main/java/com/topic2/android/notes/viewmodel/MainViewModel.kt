@@ -2,8 +2,11 @@ package com.topic2.android.notes.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import com.topic2.android.notes.data.repository.Repository
 import com.topic2.android.notes.domain.model.NoteModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * Модель просмотра, используемая для хранения глобального состояния приложения.
@@ -16,7 +19,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     }
 }
 
-fun onCreateNewNoteClick(){
+fun onCreateNewNoteClick() {
 
 }
 
@@ -24,5 +27,15 @@ fun onNoteClick(note: NoteModel) {
 
 }
 
-fun onNoteCheckedChange(note: NoteModel){
+fun onNoteCheckedChange(
+    note: NoteModel
+) {
+    val viewModelScope
+    viewModelScope.launch(
+        Dispatchers.Default
+    ) {
+        val repository
+        repository.insertNote(note)
+    }
 }
+
